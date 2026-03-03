@@ -1,53 +1,50 @@
-// app/layout.tsx
-import "./globals.css"
-import type { Metadata } from "next"
+import type { Metadata } from 'next'
+import { Geist, Geist_Mono } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+import { AuthProvider } from '@/app/auth-context'
+import { ThemeProvider } from '@/components/theme-provider'
+import './globals.css'
+
+const _geist = Geist({ subsets: ["latin"] });
+const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "NovaShop",
-  description: "Modern Next.js Application",
+  title: 'OnlineShop - Premium E-Commerce',
+  description: 'Beautiful and seamless online shopping experience',
+  generator: 'v0.app',
+  icons: {
+    icon: [
+      {
+        url: '/icon-light-32x32.png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/icon-dark-32x32.png',
+        media: '(prefers-color-scheme: dark)',
+      },
+      {
+        url: '/icon.svg',
+        type: 'image/svg+xml',
+      },
+    ],
+    apple: '/apple-icon.png',
+  },
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-background text-foreground antialiased">
-        <div className="flex min-h-screen flex-col">
-
-          {/* Header */}
-          <header className="border-b border-border bg-card">
-            <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-              <h1 className="text-xl font-bold">NovaShop</h1>
-              <nav className="space-x-6 text-sm">
-                <a href="/" className="hover:text-accent transition">
-                  Home
-                </a>
-                <a href="/about" className="hover:text-accent transition">
-                  About
-                </a>
-                <a href="/contact" className="hover:text-accent transition">
-                  Contact
-                </a>
-              </nav>
-            </div>
-          </header>
-
-          {/* Main Content */}
-          <main className="flex-1 container mx-auto px-6 py-10">
+    <html lang="en" suppressHydrationWarning>
+      <body className="font-sans antialiased" suppressHydrationWarning>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <AuthProvider>
             {children}
-          </main>
-
-          {/* Footer */}
-          <footer className="border-t border-border bg-card">
-            <div className="container mx-auto px-6 py-4 text-center text-sm text-muted-foreground">
-              © {new Date().getFullYear()} NovaShop. All rights reserved.
-            </div>
-          </footer>
-
-        </div>
+          </AuthProvider>
+        </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
