@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'lucide-react';
 import RegistrationForm from '@/components/registration-form';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 export default function RegisterPage() {
   const bgVariants = {
@@ -40,6 +41,9 @@ export default function RegisterPage() {
       animate="visible"
       className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20 flex flex-col items-center justify-center px-4 py-8"
     >
+      <div className="fixed top-8 right-8 z-50">
+        <ThemeToggle />
+      </div>
       {/* Decorative elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10" />

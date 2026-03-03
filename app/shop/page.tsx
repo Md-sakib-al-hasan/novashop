@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/app/auth-context';
 import { useRouter } from 'next/navigation';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 export default function ShopPage() {
   const { user, logout } = useAuth();
@@ -57,6 +58,7 @@ export default function ShopPage() {
             <span className="text-foreground font-medium">
               Welcome, {user.fullName}!
             </span>
+            <ThemeToggle />
             <Button
               onClick={() => router.push('/admin')}
               variant="default"
