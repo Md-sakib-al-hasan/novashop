@@ -211,17 +211,17 @@ export default function ShopPage() {
                 </div>
 
                 {/* Bottom Logout Section */}
-                <div className="border-t border-border/10 mt-auto bg-white dark:bg-zinc-950">
+                <div className="border-t border-border/10 p-4 pb-8 mt-auto bg-white dark:bg-zinc-950">
                   <Button
                     onClick={() => {
                       logout();
                       router.push('/login');
                     }}
                     variant="destructive"
-                    className="w-full justify-center gap-2 h-12 text-white font-bold text-sm rounded-xl shadow-lg shadow-red-500/10 active:scale-95 transition-all bg-red-500 hover:bg-red-600 border-none"
+                    className="w-full justify-center gap-2 h-12 text-white font-bold text-sm rounded-xl shadow-lg active:scale-95 transition-all bg-red-500 hover:bg-red-600 dark:bg-[#6366f1] dark:hover:bg-[#4f46e5] border-none shadow-red-500/10 dark:shadow-indigo-500/10"
                   >
-                    <LogOut className="w-4 h-4" />
-                    Logout Account
+                    <LogOut className="w-4 h-4 shrink-0" />
+                    <span>Logout Account</span>
                   </Button>
                 </div>
               </motion.div>
