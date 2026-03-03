@@ -1,10 +1,12 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/app/auth-context';
 import { useRouter } from 'next/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { useState } from 'react';
+import { Menu, X, LogOut, LayoutDashboard, User } from 'lucide-react';
 
 const CATEGORIES = [
   { icon: '👕', label: 'Apparel' },
@@ -39,6 +41,7 @@ const PRODUCTS = [
 export default function ShopPage() {
   const { user, logout } = useAuth();
   const router = useRouter();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   if (!user) {
     return (
@@ -80,34 +83,144 @@ export default function ShopPage() {
       {/* Navigation */}
       <motion.nav
         variants={itemVariants}
-        className="bg-card border-b border-border/20 sticky top-0 z-50 shadow-lg"
+        className="bg-card/80 backdrop-blur-md border-b border-border/20 sticky top-0 z-50 shadow-lg"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-          <h1 className="text-2xl font-bold text-foreground">OnlineShop</h1>
-          <div className="flex items-center gap-4">
-            <span className="text-foreground font-medium">
-              Welcome, {user.fullName}!
-            </span>
-            <ThemeToggle />
-            <Button
-              onClick={() => router.push('/admin')}
-              variant="default"
-              className="bg-accent text-accent-foreground"
-            >
-              Admin Panel
-            </Button>
-            <Button
-              onClick={() => {
-                logout();
-                router.push('/login');
-              }}
-              variant="outline"
-              className="border-border/50"
-            >
-              Logout
-            </Button>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+              <span className="bg-accent text-accent-foreground w-8 h-8 rounded-lg flex items-center justify-center text-sm">NS</span>
+              NovaShop
+            </h1>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-4">
+              <div className="flex items-center gap-2 px-3 py-1 bg-secondary/30 rounded-full border border-border/20">
+                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">
+                  {user.fullName}
+                </span>
+              </div>
+              <ThemeToggle />
+              <Button
+                onClick={() => router.push('/admin')}
+                variant="ghost"
+                className="hover:bg-accent/10 hover:text-accent gap-2"
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                Admin
+              </Button>
+              <Button
+                onClick={() => {
+                  logout();
+                  router.push('/login');
+                }}
+                variant="default"
+                className="bg-accent text-accent-foreground hover:bg-accent/90"
+              >
+                Logout
+              </Button>
+            </div>
+
+            {/* Mobile Menu Toggle */}
+            <div className="flex md:hidden items-center gap-2">
+              <ThemeToggle />
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsSidebarOpen(true)}
+                className="text-foreground"
+              >
+                <Menu className="h-6 w-6" />
+              </Button>
+            </div>
           </div>
         </div>
+
+        {/* Premium Mobile Sidebar (Drawer) */}
+        <AnimatePresence>
+          {isSidebarOpen && (
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setIsSidebarOpen(false)}
+                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] md:hidden"
+              />
+
+              {/* Sidebar Content */}
+              <motion.div
+                initial={{ x: '100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '100%' }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="fixed right-0 top-0 bottom-0 w-[280px] sm:w-[320px] bg-background dark:bg-zinc-950 z-[70] shadow-2xl border-l border-border/20 md:hidden flex flex-col h-full"
+              >
+                <div className="p-4 flex items-center justify-between border-b border-border/10">
+                  <h2 className="text-xl font-bold text-foreground">Menu</h2>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsSidebarOpen(false)}
+                    className="rounded-full hover:bg-secondary/50"
+                  >
+                    <X className="h-6 w-6" />
+                  </Button>
+                </div>
+
+                <div className="flex-1 overflow-y-auto px-4 py-8 space-y-8">
+                  {/* User Profile Section */}
+                  <div className="flex items-center gap-4 p-5 bg-secondary/10 rounded-3xl border border-border/5">
+                    <div className="w-14 h-14 bg-accent/20 rounded-2xl flex items-center justify-center">
+                      <User className="w-7 h-7 text-accent" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-base font-bold text-foreground truncate">{user.fullName}</p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="flex h-2 w-2 rounded-full bg-emerald-500" />
+                        <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">Active Now</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Actions List */}
+                  <div className="space-y-3">
+                    <p className="px-4 text-[11px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-4">Quick Links</p>
+                    <Button
+                      onClick={() => {
+                        router.push('/admin');
+                        setIsSidebarOpen(false);
+                      }}
+                      variant="ghost"
+                      className="w-full justify-start gap-4 h-16 hover:bg-accent hover:text-white rounded-2xl group transition-all"
+                    >
+                      <div className="w-10 h-10 bg-accent/5 rounded-xl flex items-center justify-center group-hover:bg-white/20">
+                        <LayoutDashboard className="w-5 h-5 text-accent group-hover:text-white" />
+                      </div>
+                      <span className="font-semibold text-lg">Admin View</span>
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Bottom Logout Section */}
+                <div className="p-6 border-t border-border/10 mt-auto">
+                  <Button
+                    onClick={() => {
+                      logout();
+                      router.push('/login');
+                    }}
+                    variant="destructive"
+                    className="w-full justify-center gap-3 h-16 text-white font-bold text-lg rounded-2xl shadow-lg shadow-red-500/20 active:scale-95 transition-all"
+                  >
+                    <LogOut className="w-5 h-5" />
+                    Logout Account
+                  </Button>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
       </motion.nav>
 
       {/* Hero Banner */}
