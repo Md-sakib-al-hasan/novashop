@@ -141,7 +141,7 @@ export default function ShopPage() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setIsSidebarOpen(false)}
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] md:hidden"
+                className="fixed  inset-0 bg-black/60 backdrop-blur-sm z-[60] md:hidden"
               />
 
               {/* Sidebar Content */}
@@ -150,9 +150,9 @@ export default function ShopPage() {
                 animate={{ x: 0 }}
                 exit={{ x: '100%' }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="fixed right-0 top-0 bottom-0 w-[280px] sm:w-[320px] bg-background dark:bg-zinc-950 z-[70] shadow-2xl border-l border-border/20 md:hidden flex flex-col h-full"
+                className="fixed right-0 top-0 bottom-0 w-[280px] bg-white dark:bg-zinc-950 z-[70] shadow-2xl border-l border-border/20 md:hidden flex flex-col h-dvh opacity-100"
               >
-                <div className="p-4 flex items-center justify-between border-b border-border/10">
+                <div className="p-4 flex items-center justify-between border-b border-border/10 bg-white dark:bg-zinc-950">
                   <h2 className="text-xl font-bold text-foreground">Menu</h2>
                   <Button
                     variant="ghost"
@@ -164,51 +164,51 @@ export default function ShopPage() {
                   </Button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto px-4 py-8 space-y-8">
+                <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6 bg-white dark:bg-zinc-950">
                   {/* User Profile Section */}
-                  <div className="flex items-center gap-4 p-5 bg-secondary/10 rounded-3xl border border-border/5">
-                    <div className="w-14 h-14 bg-accent/20 rounded-2xl flex items-center justify-center">
-                      <User className="w-7 h-7 text-accent" />
+                  <div className="flex items-center gap-3 p-4 bg-secondary/10 rounded-2xl border border-border/5">
+                    <div className="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center shrink-0">
+                      <User className="w-6 h-6 text-accent" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-base font-bold text-foreground truncate">{user.fullName}</p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="flex h-2 w-2 rounded-full bg-emerald-500" />
-                        <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">Active Now</p>
+                      <p className="text-sm font-bold text-foreground truncate">{user.fullName}</p>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                        <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">Active</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Actions List */}
-                  <div className="space-y-3">
-                    <p className="px-4 text-[11px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-4">Quick Links</p>
+                  <div className="space-y-2">
+                    <p className="px-3 text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-3">Quick Links</p>
                     <Button
                       onClick={() => {
                         router.push('/admin');
                         setIsSidebarOpen(false);
                       }}
                       variant="ghost"
-                      className="w-full justify-start gap-4 h-16 hover:bg-accent hover:text-white rounded-2xl group transition-all"
+                      className="w-full justify-start gap-4 h-14 hover:bg-accent/10 hover:text-accent rounded-xl group transition-all border border-transparent hover:border-accent/20"
                     >
-                      <div className="w-10 h-10 bg-accent/5 rounded-xl flex items-center justify-center group-hover:bg-white/20">
-                        <LayoutDashboard className="w-5 h-5 text-accent group-hover:text-white" />
+                      <div className="w-10 h-10 bg-accent/5 rounded-lg flex items-center justify-center group-hover:bg-accent/10">
+                        <LayoutDashboard className="w-5 h-5 text-accent" />
                       </div>
-                      <span className="font-semibold text-lg">Admin View</span>
+                      <span className="font-semibold text-base">Admin Dashboard</span>
                     </Button>
                   </div>
                 </div>
 
                 {/* Bottom Logout Section */}
-                <div className="p-6 border-t border-border/10 mt-auto">
+                <div className="border-t border-border/10 mt-auto bg-white dark:bg-zinc-950">
                   <Button
                     onClick={() => {
                       logout();
                       router.push('/login');
                     }}
                     variant="destructive"
-                    className="w-full justify-center gap-3 h-16 text-white font-bold text-lg rounded-2xl shadow-lg shadow-red-500/20 active:scale-95 transition-all"
+                    className="w-full justify-center gap-2 h-12 text-white font-bold text-sm rounded-xl shadow-lg shadow-red-500/10 active:scale-95 transition-all bg-red-500 hover:bg-red-600 border-none"
                   >
-                    <LogOut className="w-5 h-5" />
+                    <LogOut className="w-4 h-4" />
                     Logout Account
                   </Button>
                 </div>
