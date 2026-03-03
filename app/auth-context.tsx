@@ -58,7 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (savedStep) setRegistrationStep(parseInt(savedStep));
     if (savedIsRegistering) setIsRegistering(JSON.parse(savedIsRegistering));
     if (savedUser) setUser(JSON.parse(savedUser));
-    
+
     setIsHydrated(true);
   }, []);
 
@@ -103,9 +103,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem('isRegistering');
   }, []);
 
-  const verifyOTP = useCallback(async (otp: string) => {
+  const verifyOTP = useCallback(async (otp: string): Promise<boolean> => {
     // Simulate OTP verification (in real app, this would call a backend API)
-    return new Promise(resolve => {
+    return new Promise<boolean>(resolve => {
       setTimeout(() => {
         if (otp === '1234') {
           const newUser: AuthUser = {
@@ -123,9 +123,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
   }, [registrationData.email, registrationData.fullName, resetRegistration]);
 
-  const login = useCallback(async (email: string, password: string) => {
+  const login = useCallback(async (email: string, password: string): Promise<boolean> => {
     // Simulate login (in real app, this would call a backend API)
-    return new Promise(resolve => {
+    return new Promise<boolean>(resolve => {
       setTimeout(() => {
         const newUser: AuthUser = {
           id: Math.random().toString(36).substr(2, 9),

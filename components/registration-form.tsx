@@ -116,11 +116,10 @@ export default function RegistrationForm() {
           {steps.map((_, index) => (
             <motion.div
               key={index}
-              className={`h-1 flex-1 rounded-full ${
-                index <= registrationStep
+              className={`h-1 flex-1 rounded-full ${index <= registrationStep
                   ? 'bg-accent'
                   : 'bg-muted'
-              }`}
+                }`}
               layoutId={`step-${index}`}
             />
           ))}
