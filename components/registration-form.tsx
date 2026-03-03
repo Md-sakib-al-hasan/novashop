@@ -7,7 +7,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import { useAuth } from '@/app/auth-context';
+import { useRouter } from 'next/navigation';
 import OTPModal from './otp-modal';
+import { FaFacebookF, FaGoogle, FaInstagram } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 const steps = [
   {
@@ -34,9 +37,23 @@ export default function RegistrationForm() {
     updateRegistrationData,
     nextStep,
     previousStep,
+    login,
   } = useAuth();
+  const router = useRouter();
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showOTPModal, setShowOTPModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSocialLogin = async (provider: string) => {
+    setIsLoading(true);
+    try {
+      // Simulate social auth redirect
+      await login(`${provider.toLowerCase()}@example.com`, 'social-auth');
+      router.push('/shop');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const validateStep = (): boolean => {
     const newErrors: Record<string, string> = {};
@@ -117,8 +134,8 @@ export default function RegistrationForm() {
             <motion.div
               key={index}
               className={`h-1 flex-1 rounded-full ${index <= registrationStep
-                  ? 'bg-accent'
-                  : 'bg-muted'
+                ? 'bg-accent'
+                : 'bg-muted'
                 }`}
               layoutId={`step-${index}`}
             />
@@ -254,6 +271,41 @@ export default function RegistrationForm() {
             </div>
           </motion.div>
         </AnimatePresence>
+
+        {/* Social Registration */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-8"
+        >
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-border/30"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-card text-muted-foreground font-medium">Or continue with</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { icon: <FcGoogle className="w-5 h-5" />, label: 'Google' },
+              { icon: <FaFacebookF className="w-5 h-5 text-blue-600" />, label: 'Facebook' },
+              { icon: <FaInstagram className="w-5 h-5 text-pink-600" />, label: 'Instagram' },
+            ].map(provider => (
+              <Button
+                key={provider.label}
+                variant="outline"
+                onClick={() => handleSocialLogin(provider.label)}
+                disabled={isLoading}
+                className="h-12 border-border/50 hover:border-accent/50 hover:bg-secondary/50 transition-all active:scale-95"
+              >
+                {provider.icon}
+              </Button>
+            ))}
+          </div>
+        </motion.div>
 
         {/* Buttons */}
         <div className="flex gap-4 mt-8">

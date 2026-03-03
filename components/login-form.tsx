@@ -8,6 +8,8 @@ import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import { useAuth } from '@/app/auth-context';
 import { useRouter } from 'next/navigation';
+import { FaFacebookF, FaGoogle, FaInstagram } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -41,6 +43,17 @@ export default function LoginForm() {
       if (success) {
         router.push('/shop');
       }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSocialLogin = async (provider: string) => {
+    setIsLoading(true);
+    try {
+      // Simulate social auth redirect
+      await login(`${provider.toLowerCase()}@example.com`, 'social-auth');
+      router.push('/shop');
     } finally {
       setIsLoading(false);
     }
@@ -151,16 +164,18 @@ export default function LoginForm() {
 
           <div className="grid grid-cols-3 gap-3">
             {[
-              { icon: '👤', label: 'Google' },
-              { icon: '🔵', label: 'Facebook' },
-              { icon: '🍎', label: 'Apple' },
+              { icon: <FcGoogle className="w-5 h-5" />, label: 'Google' },
+              { icon: <FaFacebookF className="w-5 h-5 text-blue-600" />, label: 'Facebook' },
+              { icon: <FaInstagram className="w-5 h-5 text-pink-600" />, label: 'Instagram' },
             ].map(provider => (
               <Button
                 key={provider.label}
                 variant="outline"
-                className="h-10 border-border/50 hover:border-accent/50 hover:bg-secondary/50"
+                onClick={() => handleSocialLogin(provider.label)}
+                disabled={isLoading}
+                className="h-12 border-border/50 hover:border-accent/50 hover:bg-secondary/50 transition-all active:scale-95"
               >
-                <span>{provider.icon}</span>
+                {provider.icon}
               </Button>
             ))}
           </div>

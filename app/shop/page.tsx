@@ -94,12 +94,7 @@ export default function ShopPage() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-4">
-              <div className="flex items-center gap-2 px-3 py-1 bg-secondary/30 rounded-full border border-border/20">
-                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">
-                  {user.fullName}
-                </span>
-              </div>
+
               <ThemeToggle />
               <Button
                 onClick={() => router.push('/admin')}
