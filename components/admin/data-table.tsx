@@ -175,11 +175,10 @@ export function DataTable() {
                 <td className="px-6 py-4 text-sm text-muted-foreground">{item.email}</td>
                 <td className="px-6 py-4 text-sm">
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      item.status === 'active'
-                        ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
-                        : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
-                    }`}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold ${item.status === 'active'
+                      ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+                      }`}
                   >
                     {item.status}
                   </span>
@@ -194,7 +193,7 @@ export function DataTable() {
 
       {/* Pagination */}
       <div className="flex items-center justify-between px-6 py-4 border-t border-border bg-muted/20">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground hidden md:block">
           Showing {startIdx + 1}-{Math.min(startIdx + itemsPerPage, sortedData.length)} of{' '}
           {sortedData.length} results
         </p>
@@ -205,7 +204,7 @@ export function DataTable() {
             whileTap={{ scale: 0.95 }}
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="flex items-center gap-2 px-2 md:px-3 py-1 md:py-2 rounded-lg border border-border hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             <ChevronLeft size={16} />
             Previous
@@ -217,11 +216,10 @@ export function DataTable() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setCurrentPage(page)}
-              className={`w-10 h-10 rounded-lg font-semibold transition-colors ${
-                currentPage === page
-                  ? 'bg-accent text-accent-foreground'
-                  : 'border border-border hover:bg-muted'
-              }`}
+              className={`w-8 md:w-10 h-8 md:h-10 rounded-lg font-semibold transition-colors ${currentPage === page
+                ? 'bg-accent text-accent-foreground'
+                : 'border border-border hover:bg-muted'
+                }`}
             >
               {page}
             </motion.button>
@@ -232,7 +230,7 @@ export function DataTable() {
             whileTap={{ scale: 0.95 }}
             onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="flex items-center gap-2 px-2 md:px-3 py-1 md:py-2 rounded-lg border border-border hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             Next
             <ChevronRight size={16} />

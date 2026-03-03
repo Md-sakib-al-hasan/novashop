@@ -14,7 +14,7 @@ const analyticsMetrics = [
 
 export default function AnalyticsPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-10 md:mt-auto">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -44,11 +44,10 @@ export default function AnalyticsPage() {
                   <Icon size={24} />
                 </div>
                 <span
-                  className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
-                    isPositive
+                  className={`text-xs font-semibold px-2.5 py-1 rounded-full ${isPositive
                       ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
                       : 'bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300'
-                  }`}
+                    }`}
                 >
                   {metric.change}
                 </span>

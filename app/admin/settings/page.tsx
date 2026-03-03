@@ -35,7 +35,7 @@ const settingsGroups = [
 
 export default function SettingsPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-10 md:mt-auto">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

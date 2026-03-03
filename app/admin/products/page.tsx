@@ -13,7 +13,7 @@ const products = [
 
 export default function ProductsPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-10 md:mt-auto">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -27,7 +27,7 @@ export default function ProductsPage() {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:shadow-lg transition-shadow"
+          className="flex items-center gap-2 px-2 py-1 md:px-6 md:py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:shadow-lg transition-shadow"
         >
           <Plus size={20} />
           Add Product
@@ -50,11 +50,10 @@ export default function ProductsPage() {
                 <Package size={24} />
               </div>
               <span
-                className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
-                  product.status === 'active'
-                    ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
-                    : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
-                }`}
+                className={`text-xs font-semibold px-2.5 py-1 rounded-full ${product.status === 'active'
+                  ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+                  }`}
               >
                 {product.status}
               </span>

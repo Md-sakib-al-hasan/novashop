@@ -19,13 +19,22 @@ export function Sidebar() {
   return (
     <>
       {/* Mobile Toggle */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-50 lg:hidden p-2 hover:bg-muted rounded-lg"
-      >
-        {isOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
 
+      {isOpen ? (
+        <button
+          onClick={() => setIsOpen(false)}
+          className="fixed z-50 md:hidden p-2 hover:bg-muted rounded-lg bg-white  "
+        >
+          <X size={24} />
+        </button>
+      ) : (
+        <button
+          onClick={() => setIsOpen(true)}
+          className="fixed z-50 md:hidden p-2 rounded-lg hover:bg-muted bg-white dark:bg-black   w-full"
+        >
+          <Menu size={24} />
+        </button>
+      )}
       {/* Sidebar */}
       <motion.aside
         initial={{ x: -280 }}

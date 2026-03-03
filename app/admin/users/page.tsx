@@ -6,7 +6,7 @@ import { Plus } from 'lucide-react';
 
 export default function UsersPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-10 md:mt-auto">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -20,9 +20,9 @@ export default function UsersPage() {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:shadow-lg transition-shadow"
+          className="flex items-center gap-2 py-1 px-2 md:px-6 md:py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:shadow-lg transition-shadow"
         >
-          <Plus size={20} />
+          <Plus className="md:block hidden" size={20} />
           Add User
         </motion.button>
       </motion.div>

@@ -6,7 +6,7 @@ import { DataTable } from '@/components/admin/data-table';
 
 export default function AdminDashboard() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 mt-10 md:mt-auto">
       {/* Welcome Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
