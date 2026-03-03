@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/app/auth-context';
 import { useRouter } from 'next/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X, LogOut, LayoutDashboard, User } from 'lucide-react';
 
 const CATEGORIES = [
@@ -42,6 +42,18 @@ export default function ShopPage() {
   const { user, logout } = useAuth();
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Disable body scroll when sidebar is open
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isSidebarOpen]);
 
   if (!user) {
     return (
