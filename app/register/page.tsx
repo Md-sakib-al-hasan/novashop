@@ -41,7 +41,7 @@ export default function RegisterPage() {
       animate="visible"
       className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20 flex flex-col items-center justify-center px-4 py-8"
     >
-      <div className="fixed top-8 right-8 z-50">
+      <div className="fixed md:top-8 md:right-8 top-4 right-4 z-50">
         <ThemeToggle />
       </div>
       {/* Decorative elements */}
