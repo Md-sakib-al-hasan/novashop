@@ -45,7 +45,7 @@ export default function ShopPage() {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="min-h-screen bg-gradient-to-br from-background to-secondary/20"
+      className="min-h-screen bg-gradient-to-br from-background to-secondary/20 pt-6"
     >
       {/* Navigation */}
       <motion.nav

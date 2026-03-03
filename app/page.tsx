@@ -35,7 +35,7 @@ export default function Home() {
 
   return (
     <motion.div
-      className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20 flex flex-col items-center justify-center px-4"
+      className="min-h-screen pt-24 bg-gradient-to-br from-background via-background to-secondary/20 flex flex-col items-center px-4"
     >
       {/* Decorative elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl -z-10" />
