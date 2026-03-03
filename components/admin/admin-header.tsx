@@ -13,12 +13,14 @@ export function AdminHeader() {
     <motion.header
       initial={{ y: -80 }}
       animate={{ y: 0 }}
-      className="sticky top-0 z-40 w-full border-b border-border bg-card/95 backdrop-blur"
+      className="sticky top-0 hidden md:block z-40 w-full border-b border-border bg-card/95 backdrop-blur"
     >
-      <div className="flex items-center justify-between px-6 py-4">
-        <h2 className="text-xl font-semibold">Admin Dashboard</h2>
+      <div className="flex items-center justify-between px-6 py-4 ">
+        <h2 className="hidden md:block text-xl font-semibold">
+          Admin Dashboard
+        </h2>
 
-        <div className="flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-4">
           {/* Notifications */}
           <motion.button
             whileHover={{ scale: 1.1 }}
@@ -40,10 +42,8 @@ export function AdminHeader() {
             </div>
           </div>
 
-          {/* Theme Toggle */}
           <ThemeToggle />
 
-          {/* Logout */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
