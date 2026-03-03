@@ -6,6 +6,36 @@ import { useAuth } from '@/app/auth-context';
 import { useRouter } from 'next/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
 
+const CATEGORIES = [
+  { icon: '👕', label: 'Apparel' },
+  { icon: '👟', label: 'Footwear' },
+  { icon: '📱', label: 'Gadgets' },
+  { icon: '⌚', label: 'Watches' },
+  { icon: '🎧', label: 'Audio' },
+  { icon: '📷', label: 'Photo' },
+  { icon: '🎒', label: 'Travel' },
+  { icon: '🕶️', label: 'Eyewear' },
+  { icon: '🚲', label: 'Sports' },
+  { icon: '🎮', label: 'Gaming' },
+  { icon: '💻', label: 'Laptops' },
+  { icon: '🔋', label: 'Power' }
+];
+
+const PRODUCTS = [
+  { name: 'Classic White Tee', price: 29.99, description: '100% organic cotton essential', icon: '👕' },
+  { name: 'Runner X1 Sneakers', price: 129.50, description: 'Built for performance and comfort', icon: '🥾' },
+  { name: 'Pro Tablet 11"', price: 799.00, description: 'The power of a PC in your hands', icon: '🖥️' },
+  { name: 'Nomad Backpack', price: 89.00, description: 'Weather-resistant travel companion', icon: '🎒' },
+  { name: 'Aura Headphones', price: 249.99, description: 'Elite noise-cancellation technology', icon: '🎧' },
+  { name: 'Vintage 35mm Camera', price: 450.00, description: 'Capture memories with soul', icon: '📷' },
+  { name: 'Zenith Smartwatch', price: 199.00, description: 'Health tracking on your wrist', icon: '⌚' },
+  { name: 'Lunar Sunglasses', price: 155.00, description: 'Timeless style, UV protection', icon: '🕶️' },
+  { name: 'Summit Hybrid Bike', price: 1200.00, description: 'Conquer both trails and streets', icon: '🚴' },
+  { name: 'Vortex Game Console', price: 499.99, description: 'Next-gen immersive gaming', icon: '🕹️' },
+  { name: 'Logic Mech Keyboard', price: 175.00, description: 'Precision typing for pros', icon: '⌨️' },
+  { name: 'Hyper Power Bank', price: 59.00, description: 'Keep your devices charged all day', icon: '🔋' }
+];
+
 export default function ShopPage() {
   const { user, logout } = useAuth();
   const router = useRouter();
@@ -112,6 +142,43 @@ export default function ShopPage() {
         </div>
       </motion.section>
 
+      {/* Browse Categories - Demo Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <motion.div
+          variants={itemVariants}
+          className="flex items-center justify-between mb-8"
+        >
+          <div>
+            <h3 className="text-2xl font-bold text-foreground">Browse Categories</h3>
+            <p className="text-muted-foreground">Expertly curated collections</p>
+          </div>
+          <Button variant="ghost" className="text-accent hover:text-accent font-semibold">
+            View All Categories →
+          </Button>
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
+        >
+          {CATEGORIES.map((cat, i) => (
+            <motion.div
+              key={i}
+              variants={itemVariants}
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="group cursor-pointer bg-card border border-border/10 rounded-2xl p-6 flex flex-col items-center justify-center transition-all hover:bg-accent/5 hover:border-accent/20 shadow-sm hover:shadow-md"
+            >
+              <span className="text-4xl mb-3 filter grayscale group-hover:grayscale-0 transition-all duration-300">
+                {cat.icon}
+              </span>
+              <span className="text-sm font-bold text-muted-foreground group-hover:text-accent transition-colors">
+                {cat.label}
+              </span>
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
+
       {/* Products Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <motion.h3
@@ -125,7 +192,7 @@ export default function ShopPage() {
           variants={containerVariants}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {[...Array(12)].map((_, i) => (
+          {PRODUCTS.map((product, i) => (
             <motion.div
               key={i}
               variants={itemVariants}
@@ -138,21 +205,21 @@ export default function ShopPage() {
                   whileHover={{ scale: 1.1 }}
                   className="text-6xl"
                 >
-                  🛍️
+                  {product.icon}
                 </motion.div>
               </div>
 
               {/* Product Info */}
               <div className="p-4">
                 <h4 className="font-semibold text-foreground mb-2">
-                  Premium Product {i + 1}
+                  {product.name}
                 </h4>
                 <p className="text-sm text-muted-foreground mb-4">
-                  High-quality item designed for excellence
+                  {product.description}
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-lg font-bold text-accent">
-                    ${(99.99 + i * 10).toFixed(2)}
+                    ${product.price.toFixed(2)}
                   </span>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
